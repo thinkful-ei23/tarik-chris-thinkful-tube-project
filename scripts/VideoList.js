@@ -27,7 +27,8 @@ const videolist = (function() {
       console.log(searchVal);
       $('#search-term').val('');
       api.fetchVideos(searchVal, function(response) {
-        store.setVideos(api.decorateResponse(response));
+        console.log(response);
+        store.setVideos(response);
         render();
       });
     });

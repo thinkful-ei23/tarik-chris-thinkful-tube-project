@@ -8,24 +8,29 @@ const api = (function(){
 
   const fetchVideos = function(searchTerm, callback) {
     const query = {
-      part: 'snippet',
-      key: API_KEY, 
-      q: searchTerm,
-      type: 'video'
+      data: {
+        part: 'snippet',
+        key: API_KEY, 
+        q: searchTerm,
+        type: 'video'
+      },
+      dataType: 'json',
+      type: 'GET',
+      success: function(response) {
+        console.log(response);
+        const filteredResponse = response.items.map(function(item) {
+          return {
+            id: item.id.videoId,
+            title: item.snippet.title,
+            thumbnail: item.snippet.thumbnails.medium.url
+          };
+        });
+        callback(filteredResponse);
+      },
     };
-    $.getJSON(BASE_URL, query, callback);
-  };
-  const decorateResponse = function(response) {
-    return response.items.map(function(item) {
-      return {
-        id: item.id.videoId,
-        title: item.snippet.title,
-        thumbnail: item.snippet.thumbnails.medium.url
-      };
-    });
+    $.ajax(query);
   };
   return {
-    fetchVideos,
-    decorateResponse
+    fetchVideos
   };
 }());
