@@ -14,6 +14,7 @@ const api = (function(){
     };
     $.getJSON(BASE_URL, query, callback);
   };
+  
   return {
     fetchVideos
   };
