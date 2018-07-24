@@ -11,11 +11,21 @@ const api = (function(){
       part: 'snippet',
       key: API_KEY, 
       q: searchTerm,
+      type: 'video'
     };
     $.getJSON(BASE_URL, query, callback);
   };
-  
+  const decorateResponse = function(response) {
+    return response.items.map(function(item) {
+      return {
+        id: item.id.videoId,
+        title: item.snippet.title,
+        thumbnail: item.snippet.thumbnails.medium.url
+      };
+    });
+  };
   return {
-    fetchVideos
+    fetchVideos,
+    decorateResponse
   };
 }());

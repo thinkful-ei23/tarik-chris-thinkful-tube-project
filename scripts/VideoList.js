@@ -14,23 +14,31 @@ const videolist = (function() {
   };
   const render = function() {
     const html = store.videos.map(video => {
-      generateListItem(video);
+      return generateListItem(video);
     });
     $('.results').html(html);
   };
 
   const handleFormSubmit = function() {
     $('.js-search-form').submit(event => {
-      event.preventDefault;
+      console.log('handleFormSubmit, ran');
+      event.preventDefault();
       const searchVal = $('#search-term').val();
+      console.log(searchVal);
       $('#search-term').val('');
       api.fetchVideos(searchVal, function(response) {
-        store.setVideos();
+        store.setVideos(api.decorateResponse(response));
+        render();
       });
     });
   };
 
+  const bindEventListeners = function() {
+    handleFormSubmit();
+  };
+
   return {
     render,
+    bindEventListeners
   };
 }());

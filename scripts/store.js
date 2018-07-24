@@ -2,9 +2,9 @@
 /* */
 
 const store = (function() {
-  let videos = [];
+  const videos = [];
   const setVideos = function(decVideoArr) {
-    videos = decVideoArr;
+    this.videos = decVideoArr;
   };
   return {
     videos,
