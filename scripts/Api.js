@@ -1,5 +1,5 @@
 'use strict';
-/* global $ */
+/* global $, store */
 
 const api = (function(){
   const BASE_URL = 'https://www.googleapis.com/youtube/v3/search';
@@ -14,7 +14,7 @@ const api = (function(){
       type: 'video'
     };
     $.getJSON(BASE_URL, query, function(response) {
-      console.log(`Api response: ${response}`);
+      store.nextPageToken = response.nextPageToken;
       const filteredResponse = response.items.map(function(item) {
         return {
           id: item.id.videoId,
