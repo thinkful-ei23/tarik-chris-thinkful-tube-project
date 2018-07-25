@@ -27,7 +27,7 @@ const videolist = (function() {
       console.log(searchVal);
       $('#search-term').val('');
       api.fetchVideos(searchVal, function(response) {
-        console.log(response);
+        console.log(`This is the filtered success response: ${response}`);
         store.setVideos(response);
         render();
       });
